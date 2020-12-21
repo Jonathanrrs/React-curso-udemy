@@ -2,15 +2,12 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 
-const CounterApp = ({value}) => {
+const CounterApp = ({value = 5}) => {
 
     /* hook es una función */
 
     const [counter, setCounter] = useState(value); /* retorna un arreglo */
     
-
-
-
     /* handleAdd */
     const handleAdd = () => {
         setCounter(counter+1);
@@ -36,7 +33,7 @@ const CounterApp = ({value}) => {
 }
 
 CounterApp.propTypes = {
-    value: PropTypes.number.isRequired
+    value: PropTypes.number
 }
 
 export default CounterApp;
