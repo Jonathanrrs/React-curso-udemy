@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import { GifGridItem } from './GifGridItem';
 
-export const GifGrid = ({category}) => {
+export const GifsGrid = ({category}) => {
 
     const [images, setImages] = useState([]);
 
@@ -10,7 +10,7 @@ export const GifGrid = ({category}) => {
     }, [])
 
     const getGifs = async() => {
-        const url = `https://api.giphy.com/v1/gifs/search?q=Rick+and+Morty&limit=10&api_key=lol`
+        const url = `https://api.giphy.com/v1/gifs/search?q=Rick+and+Morty&limit=10&api_key=lol`;
         const resp = await fetch(url);
         const {data} = await resp.json();
         const gifs = data.map(img => {
@@ -26,8 +26,9 @@ export const GifGrid = ({category}) => {
     
    
     return (
-        <div>
-            <h3>{category}</h3>
+       <>
+        <h3>{category}</h3>
+        <div className="card-grid">
                 {
                    images.map((img) => (
                         <GifGridItem 
@@ -37,5 +38,6 @@ export const GifGrid = ({category}) => {
                     ))
                 }
         </div>
+       </>
     )
 }
