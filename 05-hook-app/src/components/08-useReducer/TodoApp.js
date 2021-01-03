@@ -1,25 +1,56 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { todoReducer } from './todoReducer';
 import './styles.css';
+import { UseForm } from '../../hooks/UseForm';
 
 
-const initialState = [{
-    id: new Date().getTime(),
-    desc: 'Aprender React',
-    done: false
-}];
+// const initialState = [{
+//     id: new Date().getTime(),
+//     desc: 'Aprender React',
+//     done: false
+// }];
+
+// const init = () => {
+//     return [{
+//         id: new Date().getTime(),
+//         desc: 'Aprender React',
+//         done: false
+//     }];
+// }
+
+const init = () => {
+    return JSON.parse(localStorage.getItem('todos')) || [];
+}
 
 export const TodoApp = () => {
 
 
-    const [todos, dispatch] = useReducer(todoReducer, initialState);
-    console.log(todos);
+    const [todos, dispatch] = useReducer(todoReducer, [], init); /* por defecto es un arreglo vacio */
+
+    const [{description}, handleInputChange, reset] = UseForm({
+        description: '', /* este viene del formulario de abajo */
+    });
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos]);
+
+    const handleDelete = (todoId) => {
+        console.log(todoId);
+    }
+
+
+    console.log(description);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if(description.trim().length <= 1) {
+            return;
+        }
         const newTodo = {
             id: new Date().getTime(),
-            desc: 'Nueva tarea',
+            desc: description,
             done: false
         }
 
@@ -29,6 +60,7 @@ export const TodoApp = () => {
         }
 
         dispatch(action);
+        reset();
     }
 
     return (
@@ -65,10 +97,13 @@ export const TodoApp = () => {
                                 className="form-control"
                                 placeholder="Aprender..."
                                 autoComplete="off"
+                                onChange={handleInputChange}
+                                value={description}
                             />
                             <button
                                 type="submit"
                                 className="btn btn-outline-primary mt-1 btn-block"
+                                onClick={handleDelete}
                             >
                                 Agregar
                             </button>
