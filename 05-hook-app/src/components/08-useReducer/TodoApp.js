@@ -3,27 +3,11 @@ import { todoReducer } from './todoReducer';
 import './styles.css';
 import { UseForm } from '../../hooks/UseForm';
 
-
-// const initialState = [{
-//     id: new Date().getTime(),
-//     desc: 'Aprender React',
-//     done: false
-// }];
-
-// const init = () => {
-//     return [{
-//         id: new Date().getTime(),
-//         desc: 'Aprender React',
-//         done: false
-//     }];
-// }
-
 const init = () => {
     return JSON.parse(localStorage.getItem('todos')) || [];
 }
 
 export const TodoApp = () => {
-
 
     const [todos, dispatch] = useReducer(todoReducer, [], init); /* por defecto es un arreglo vacio */
 
@@ -36,11 +20,13 @@ export const TodoApp = () => {
     }, [todos]);
 
     const handleDelete = (todoId) => {
-        console.log(todoId);
+        const action = {
+            type: 'delete',
+            payload: todoId
+        }
+        dispatch(action);
     }
 
-
-    console.log(description);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -79,6 +65,7 @@ export const TodoApp = () => {
                                     <p className="text-center complete">{i + 1}. {todo.desc}</p>
                                     <button
                                         className="btn btn-danger"
+                                        onClick={() => handleDelete(todo.id)}
                                     >
                                         Borrar
                         </button>
@@ -103,7 +90,6 @@ export const TodoApp = () => {
                             <button
                                 type="submit"
                                 className="btn btn-outline-primary mt-1 btn-block"
-                                onClick={handleDelete}
                             >
                                 Agregar
                             </button>
