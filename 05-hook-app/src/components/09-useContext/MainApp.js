@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AppRouter } from './AppRouter';
 import { UserContext } from './UserContext';
 
 export const MainApp = () => {
 
-    const user = {
-        id: 123,
-        name: 'Jonathan',
-        email: 'Jona@ucol.mx'
-    }
+    const [user, setUser] = useState({});
+
     return (
-        <UserContext.Provider value={user}> {/* value es lo que quieres compartir  */}
+        <UserContext.Provider value={{
+            user,
+            setUser,
+        }}> {/* value es lo que quieres compartir  */}
             <AppRouter />
         </UserContext.Provider>
     )
