@@ -24,7 +24,7 @@ describe('Pruebas en el componente', () => {
        
         expect(wrapper.find('TodoListItem').length).toBe(demoTodos.length);
         /* se espera cualquier funcion, debe ser con toEqual porque con el tobe se intenta comparar con el valor de equidad 2 objetos diferentes, aunque sea igual como son objetos apuntan a espacios diferentes de memoria */
-        expect(wrapper.find('TodoListItem').at(0).props('handleDelete')).toEqual(expect.any(Function));
+        expect(wrapper.find('TodoListItem').at(0).prop('handleDelete')).toEqual(expect.any(Function));
     });
     
     
