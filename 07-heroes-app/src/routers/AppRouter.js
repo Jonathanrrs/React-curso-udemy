@@ -7,19 +7,19 @@ import {
   Route
 } from "react-router-dom";
 import { LoginScreen } from '../components/login/LoginScreen';
-import { Marvel } from '../components/marvel/Marvel';
-import { Navbar } from '../components/ui/Nabvar';
+import { DashboardRoutes } from './DashboardRoutes';
+
 
 
 export const AppRouter = () => {
     return (
         <Router>
       <div>
-        <Navbar />
-
+        {/* esto lo  hacemos para que el login no tenga el estilo del otro router */}
         <Switch>
-            <Route exact path="/login" component={LoginScreen} />
-            <Route exact path="/" component={Marvel} />
+          <Route exact path="/login" component={LoginScreen} />
+          {/* no debe ser exact porque sino no funciona */}
+          <Route  path="/" component={DashboardRoutes} />
         </Switch>
       </div>
     </Router>
