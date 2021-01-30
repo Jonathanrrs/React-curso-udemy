@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react'
-import { AuthContext } from './auth/AuthContext'
-import { authReducer } from './auth/authReducer'
-import { AppRouter } from './routers/AppRouter'
+import React, {useEffect, useReducer} from 'react';
+import { AuthContext } from './auth/AuthContext';
+import { authReducer } from './auth/authReducer';
+import { AppRouter } from './routers/AppRouter';
 
 export const HeroesApp = () => {
     
@@ -13,6 +13,11 @@ export const HeroesApp = () => {
     /* el reducer será el que creamos, initial state objeto vacio, el init porque vamos a leer el localstorage */
     const [user, dispatch] = useReducer(authReducer, {}, init)
     /* ahora podemos utilizar el user y dispatch en cualquier parte de la app */
+    
+    useEffect(() => {
+        localStorage.setItem('user', JSON.stringify(user));
+    }, [user])
+    
     return (
         <div>
             <AuthContext.Provider value={{user, dispatch}}>

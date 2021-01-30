@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { AuthContext } from '../../auth/AuthContext';
+import { types } from '../../types/types';
 
 export const LoginScreen = ({history}) => {
     
+    const {dispatch} = useContext(AuthContext);
     const handleLogin = () => {
         /* history lo obtenemos de las props que proporciona react router, con el cual con el push podemos navegar a una ruta especifica */
         // history.push('/');
         /* utilizamos replace para que el back del navegador ya no vuelva al login porque ya lo hicimos, esa es la diferencia con push */
+        // history.replace('/');
+        const action = {
+            type: types.login,
+            payload: {
+                name: 'Jonathan'
+            }
+        }
+        dispatch(action);
         history.replace('/');
     }
     
