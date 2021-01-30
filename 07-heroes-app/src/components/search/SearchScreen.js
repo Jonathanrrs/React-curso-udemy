@@ -1,23 +1,35 @@
-import React from 'react'
+import React from 'react';
+/* paquete para manejar mejor las rutas de la búsqueda */
+import queryString from 'query-string';
+
+import { useLocation } from 'react-router-dom';
 import { heroes } from '../../data/heroes'
 import { UseForm } from '../../hook/UseForm';
 import { HeroCard } from '../heroes/HeroCard';
 
-export const SearchScreen = () => {
+export const SearchScreen = ({history}) => {
 
+    const location = useLocation();
+
+    /* aqui lo usamos para manejar la búsqueda de la ruta, q por el push de history */
+    const {q = ''} = queryString.parse(location.search)
+    /* cuando recarguemos la página o entremos directa a esa se mantendrá la búsqueda previamente realizada */
     const initialForm = {
-        searchText: ''
+        searchText: q
     };
+    /* utilizamos el customhook creado anteriormente */
     const [values, handleInputChange] = UseForm(initialForm);
     
     const {searchText} = values;
-
+    
+    const heroesFiltred = heroes;
+    
     const handleSearch = (e) => {
         e.preventDefault();
-        console.log(searchText);
+        /* esto es para que en la ruta aparezca el query creado */
+        history.push(`?q${searchText}`);
     }
 
-    const heroesFiltred = heroes;
     return (
         <div>
             <h1>SearchScreen</h1>
