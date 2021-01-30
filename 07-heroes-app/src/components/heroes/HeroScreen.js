@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Redirect, useParams } from 'react-router-dom'
 import { getHeroById } from '../../selectors/getHeroById';
 
@@ -6,7 +6,11 @@ export const HeroScreen = ({history}) => {
     
     /* hook de react router, este extrae los parametros que vayan por el url */
     const {heroeId} = useParams();
-    const hero = getHeroById(heroeId);
+
+
+    /* utilizamos use memo para que solo se renderize cuando cambie el id */
+    const hero = useMemo(() => getHeroById(heroeId), [heroeId]);
+    // const hero = getHeroById(heroeId);
 
     /* si el hereo no existe se redireccionará al home(marvel), no puede ser return porque un componente debe regresar algo, en ese caso un componente de react router  */
     if(!hero) {
