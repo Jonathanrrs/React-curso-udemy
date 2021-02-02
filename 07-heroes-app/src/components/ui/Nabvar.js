@@ -1,11 +1,26 @@
 import React, { useContext } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../auth/AuthContext'
+import { types } from '../../types/types';
 
-export const Navbar = () => {
+export const Navbar = () => { /* no se puede {history} porque nos da undefined porque no está dentro de una ruta, es solo un componente el navbar */
+ 
     /* extraer propiedad del objeto */
-    const {user: {name}} = useContext(AuthContext);
-   
+    const {user: {name}, dispatch} = useContext(AuthContext);
+
+    const history = useHistory(); /* hook de react router, esto se puede porque el navbar está dentro de un contex provider */
+    console.log(history);
+
+    const handleLogout = () => {
+        const action = {
+            type: types.logout,
+        }
+
+        dispatch(action);
+        history.replace('/login'); 
+    
+    }
+
     return (
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
             
@@ -50,14 +65,13 @@ export const Navbar = () => {
             <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
                 <ul className="navbar-nav ml-auto">
                     <span className="nav-item nav-link text-info">{name}</span>
-                    <NavLink 
-                        activeClassName="active"
-                        className="nav-item nav-link" 
-                        exact
-                        to="/login"
+                    <button 
+                        // activeClassName="active"
+                        className="nav-item nav-link btn" 
+                        onClick={handleLogout}
                     >
                         Logout
-                    </NavLink>
+                    </button>
                 </ul>
             </div>
         </nav>
