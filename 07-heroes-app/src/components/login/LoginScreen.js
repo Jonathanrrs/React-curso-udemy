@@ -6,6 +6,10 @@ export const LoginScreen = ({history}) => {
     
     const {dispatch} = useContext(AuthContext);
     const handleLogin = () => {
+
+        const lastPath = localStorage.getItem('lastpath') || '/';
+
+
         /* history lo obtenemos de las props que proporciona react router, con el cual con el push podemos navegar a una ruta especifica */
         // history.push('/');
         /* utilizamos replace para que el back del navegador ya no vuelva al login porque ya lo hicimos, esa es la diferencia con push */
@@ -17,7 +21,7 @@ export const LoginScreen = ({history}) => {
             }
         }
         dispatch(action);
-        history.replace('/');
+        history.replace(lastPath);
     }
     
     return (
