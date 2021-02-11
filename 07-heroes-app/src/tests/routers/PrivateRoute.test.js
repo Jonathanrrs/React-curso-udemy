@@ -32,5 +32,25 @@ describe('Pruebas en PrivateRoute', () => {
         expect(localStorage.setItem).toHaveBeenCalledWith('lastpath', '/marvel'); 
 
     });
+    /* tarea */
+    test('Debe bloquear el componente si no está auntenticado ', () => {
+        const props = {
+            location: {
+                pathname: '/marvel'
+            }
+        }
+       const wrapper = mount(
+           <MemoryRouter>
+               <PrivateRoute 
+                isAuthenticated={false}
+                component={() => <span>Hola mundo</span>}
+                {...props}
+               />
+           </MemoryRouter>
+       );
+       
+       expect(wrapper.find('span').exists()).toBe(false);
+    });
+    
     
 });
