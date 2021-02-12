@@ -9,7 +9,7 @@ export const Navbar = () => { /* no se puede {history} porque nos da undefined p
     const {user: {name}, dispatch} = useContext(AuthContext);
 
     const history = useHistory(); /* hook de react router, esto se puede porque el navbar está dentro de un contex provider */
-    console.log(history);
+    
 
     const handleLogout = () => {
         const action = {
