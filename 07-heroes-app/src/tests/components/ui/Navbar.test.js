@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from "enzyme";
-import { AuthContext } from '../../auth/AuthContext';
-import { Navbar } from '../../components/ui/Nabvar';
+import { AuthContext } from '../../../auth/AuthContext';
+import { Navbar } from '../../../components/ui/Nabvar';
 import { MemoryRouter, Router } from 'react-router-dom';
-import { types } from '../../types/types';
+import { types } from '../../../types/types';
 
 describe('Pruebas en Navbar', () => {
 
