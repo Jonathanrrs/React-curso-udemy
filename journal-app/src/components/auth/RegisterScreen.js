@@ -2,12 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { UseForm } from '../../hooks/useForm';
 import validator from 'validator';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setError, removeError } from '../../actions/ui';
 
 export const RegisterScreen = () => {
 
     const dispatch = useDispatch();
+
+    /* extraemos los mensajes de error del state */
+    const { msgError } = useSelector(state => state.ui);
 
     const inicial = {
         name: 'Jonathan',
@@ -18,25 +21,25 @@ export const RegisterScreen = () => {
 
     const [values, handleInputChange] = UseForm(inicial);
 
-    const {name, email, password, password2} = values;
+    const { name, email, password, password2 } = values;
 
     const handleRegister = (e) => {
         e.preventDefault();
-        if(isFormValid()) {
+        if (isFormValid()) {
             console.log('form correcto');
         }
     }
 
     const isFormValid = () => {
-        if(name.trim().length === 0) {
+        if (name.trim().length === 0) {
             dispatch(setError('Name is required'));
             return false;
-        } else if(!validator.isEmail(email)) {
+        } else if (!validator.isEmail(email)) {
             dispatch(setError('Email is not valid'));
             return false;
         }
-        else if(password !== password2 || password.length < 5) {
-            dispatch(setError('password should be at least 6 characters and match each other'));
+        else if (password !== password2 || password.length < 5) {
+            dispatch(setError('Password should be at least 6 characters and match each other'));
             return false;
         }
         dispatch(removeError());
@@ -48,11 +51,16 @@ export const RegisterScreen = () => {
             <h3 className="auth__title">Register</h3>
             <form onSubmit={handleRegister}>
 
-                <div className="auth__alert-error">
-                    Hola mundo
-                </div>
+                {   msgError && 
+                    (
+                        <div className="auth__alert-error">
+                            {msgError}
+                        </div>
+                    )
 
-            <input
+                }
+
+                <input
                     type="text"
                     placeholder="Name"
                     name="name"
@@ -78,7 +86,7 @@ export const RegisterScreen = () => {
                     onChange={handleInputChange}
                     value={password}
                 />
-                  <input
+                <input
                     type="password"
                     placeholder="Confirm password"
                     name="password2"
@@ -88,13 +96,13 @@ export const RegisterScreen = () => {
                 />
 
                 <button
-                    className="btn btn-primary btn-block mb-5" 
+                    className="btn btn-primary btn-block mb-5"
                     type="submit"
-                    // disabled={true}
+                // disabled={true}
                 >
                     Login
                 </button>
-             
+
                 <Link to="/auth/login" className="link">
                     Already registered?
                 </Link>
