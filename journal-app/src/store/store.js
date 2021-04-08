@@ -3,6 +3,7 @@ import { authReducer } from '../reducers/authReducer';
 
 import thunk from 'redux-thunk';
 import { uiReducer } from '../reducers/uiReducer';
+import { notesReducer } from '../reducers/notesReducer';
 /* esto es para habilitar las extensiones de devtools y aplicar middleware */
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
@@ -13,7 +14,8 @@ const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOO
 
 const reducers = combineReducers({
     auth: authReducer,
-    ui: uiReducer
+    ui: uiReducer,
+    notes: notesReducer
 });
 
 /* necesitamos importar el store en el punto más alto de nuestra app, en journalapp */
