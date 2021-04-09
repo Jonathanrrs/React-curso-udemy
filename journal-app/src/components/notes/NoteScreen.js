@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { activeNote } from '../../actions/notes'
+import { activeNote, startDeleting } from '../../actions/notes'
 import { UseForm } from '../../hooks/useForm'
 import { NotesAppBar } from './NotesAppBar'
 
@@ -12,7 +12,7 @@ export const NoteScreen = () => {
     /* renombrar */
     const { active: note } = useSelector(store => store.notes)
     const [values, handleInputChange, reset] = UseForm(note);
-    const { body, title } = values;
+    const { body, title, id } = values;
 
     /* esto es para solucinar el problema del form donde no cambiaba por el comportamiento del useform */
     const activeId = useRef(note.id)
@@ -28,6 +28,10 @@ export const NoteScreen = () => {
     useEffect(() => {
         dispatch(activeNote(values.id, {...values}));
     }, [values, dispatch])
+
+    const handleDelete = () => {
+        dispatch(startDeleting(id));
+    }
 
     return (
         <div className="notes__main-content">
@@ -63,6 +67,13 @@ export const NoteScreen = () => {
                     </div>)
                 }
             </div>
+
+            <button 
+            className="btn btn-danger"
+            onClick={handleDelete}
+            > 
+                Delete
+            </button>
         </div>
     )
 }
