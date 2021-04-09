@@ -56,7 +56,7 @@ export const NoteScreen = () => {
                     (note.url) &&
                     (<div>
                         <img
-                            src="https://sm.ign.com/ign_es/screenshot/default/miles-morales-in-spider-man-into-the-spider-verse-2560x1440_qwyz.jpg"
+                            src={note.url}
                             alt="img"
                             className="notes__image"
                         />
