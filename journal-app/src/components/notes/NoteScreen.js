@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { UseForm } from '../../hooks/useForm'
 import { NotesAppBar } from './NotesAppBar'
@@ -6,10 +6,18 @@ import { NotesAppBar } from './NotesAppBar'
 export const NoteScreen = () => {
     /* renombrar */
     const { active: note } = useSelector(store => store.notes)
-
-    const [values, handleInputChange] = UseForm(note);
-
+    const [values, handleInputChange, reset] = UseForm(note);
     const { body, title } = values;
+
+    /* esto es para solucinar el problema del form donde no cambiaba por el comportamiento del useform */
+    const activeId = useRef(note.id)
+
+    useEffect(() => {
+        if(note.id != activeId) {
+            reset(note)
+            activeId.current = note.id
+        }
+    }, [note, reset])
 
     return (
         <div className="notes__main-content">
