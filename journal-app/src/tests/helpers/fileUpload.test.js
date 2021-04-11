@@ -1,4 +1,12 @@
 import { fileUpload } from "../../helpers/fileUpload";
+import cloudinary from 'cloudinary';
+
+cloudinary.config({ 
+    cloud_name: '', 
+    api_key: '', 
+    api_secret: '' 
+  });
+
 
 describe('Pruebas en fileUpload', () => {
 
@@ -11,6 +19,15 @@ describe('Pruebas en fileUpload', () => {
         const url = await fileUpload(file);
         
         expect(typeof url).toBe('string');
+
+        //borrar img por id
+        const segments = url.split('/');
+        const imageId = segments[segments.length-1].replace('.png', '');
+
+
+        cloudinary.v2.api.delete_resources(imageId, {}, () => {
+            // done();
+        });
 
     });
 
