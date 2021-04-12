@@ -112,15 +112,15 @@ describe('Pruebas con las acciones de notes', () => {
  
     });
     
-    test('startUploading debe actualizar el url del entry ', async () => {
+    // test('startUploading debe actualizar el url del entry ', async () => {
            
-        const file = new File([], 'foto.jpg');
-        await store.dispatch(startUploading(file));
+    //     const file = new File([], 'foto.jpg');
+    //     await store.dispatch(startUploading(file));
 
-        const docRef = await db.doc('/TESTING/journal/notes/27DGatRE5CRs3TPzYb4A').get();
-        expect(docRef.data().url).toBe('https://hola-mundo.com/cosa.jpg');
+    //     const docRef = await db.doc('/TESTING/journal/notes/27DGatRE5CRs3TPzYb4A').get();
+    //     expect(docRef.data().url).toBe('https://hola-mundo.com/cosa.jpg');
         
-    });
+    // });
     
     
     
