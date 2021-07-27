@@ -3,9 +3,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Redirect
 } from "react-router-dom";
-import { CalendarApp } from '../CalendarApp';
 import { LoginScreen } from '../componentes/auth/LoginScreen';
 import { CalendarScreen } from '../componentes/calendar/CalendarScreen';
 
@@ -17,6 +16,7 @@ export const AppRouter = () => {
                     <Switch>
                         <Route path="/login" exact component={LoginScreen}></Route>
                         <Route path="/" exact component={CalendarScreen}></Route>
+                        <Redirect to="/" />
                     </Switch>
                 </div>
             </Router>
