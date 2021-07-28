@@ -10,6 +10,9 @@ const app = express();
 /* Middleware, funcion que se ejecuta cuando alguein hace una peticion al servidor */
 app.use(express.static('public'));
 
+/* Lectura y parseo del body */
+app.use(express.json());
+
 /* rutas */
 app.use('/api/auth', require('./routes/auth'));
 
