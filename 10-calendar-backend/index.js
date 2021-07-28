@@ -1,10 +1,15 @@
 const express = require('express');
+const { dbConnection } = require('./database/config');
 /* esto para las variables de entorno del proyecto de .env */
 require('dotenv').config();
 
 
 /* crear server express */
 const app = express();
+
+/* Base de datos */
+dbConnection();
+
 
 /* Directorio público */
 /* Middleware, funcion que se ejecuta cuando alguein hace una peticion al servidor */
