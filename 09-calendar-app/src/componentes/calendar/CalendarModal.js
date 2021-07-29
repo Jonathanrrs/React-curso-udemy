@@ -4,8 +4,8 @@ import DateTimePicker from 'react-datetime-picker';
 import moment from 'moment';
 import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from 'react-redux';
-import { uiCloseModal } from '../actions/ui';
-import { eventAddNew, eventClearActiveEvent, eventUpdated } from '../actions/events';
+import { uiCloseModal } from '../../actions/ui';
+import { eventAddNew, eventClearActiveEvent, eventUpdated } from '../../actions/events';
 
 /* para que el modal aparezca a la mitad */
 const customStyles = {

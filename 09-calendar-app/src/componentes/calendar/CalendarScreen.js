@@ -7,8 +7,8 @@ import { messages } from '../../helpers/calendar-messages-es';
 import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { uiOpenModal } from '../actions/ui';
-import { eventClearActiveEvent, eventSetActive } from '../actions/events';
+import { uiOpenModal } from '../../actions/ui';
+import { eventClearActiveEvent, eventSetActive } from '../../actions/events';
 
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';

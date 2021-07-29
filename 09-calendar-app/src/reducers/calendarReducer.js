@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { types } from '../types/types';
 
+
 const initialState = {
     events: [
         {
