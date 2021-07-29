@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { startLogin } from '../../actions/auth';
+import Swal from 'sweetalert2';
+import { startLogin, startRegister } from '../../actions/auth';
 import { UseForm } from '../../hooks/useForm';
 import './login.css';
 
@@ -13,12 +14,30 @@ export const LoginScreen = () => {
         lPassword: '123456'
     });
 
-    const {lEmail, lPassword} = formLoginValues;
+    const [formRegisterValues, handleRegisterInputChange] = UseForm({
+        rName: 'ili',
+        rEmail: 'ili@gmail.com',
+        rPassword1: '123456',
+        rPassword2: '123456'
+    });
+
+    const { lEmail, lPassword } = formLoginValues;
+
+    const { rName, rEmail, rPassword1, rPassword2 } = formRegisterValues;
 
     const handleLogin = (e) => {
         e.preventDefault();
 
         dispatch(startLogin(lEmail, lPassword));
+    }
+
+    const handleRegister = (e) => {
+        e.preventDefault();
+
+        if (rPassword1 !== rPassword2) {
+            return Swal.fire('Error', 'Las contraseñas deben de ser iguales', 'error');
+        }
+        dispatch(startRegister(rEmail, rPassword1, rName));
     }
 
     return (
@@ -28,7 +47,7 @@ export const LoginScreen = () => {
                     <h3>Ingreso</h3>
                     <form onSubmit={handleLogin}>
                         <div className="form-group">
-                            <input 
+                            <input
                                 type="text"
                                 className="form-control"
                                 placeholder="Correo"
@@ -48,10 +67,10 @@ export const LoginScreen = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <input 
+                            <input
                                 type="submit"
                                 className="btnSubmit"
-                                value="Login" 
+                                value="Login"
                             />
                         </div>
                     </form>
@@ -59,12 +78,15 @@ export const LoginScreen = () => {
 
                 <div className="col-md-6 login-form-2">
                     <h3>Registro</h3>
-                    <form>
+                    <form onSubmit={handleRegister}>
                         <div className="form-group">
                             <input
                                 type="text"
                                 className="form-control"
                                 placeholder="Nombre"
+                                name="rName"
+                                value={rName}
+                                onChange={handleRegisterInputChange}
                             />
                         </div>
                         <div className="form-group">
@@ -72,13 +94,19 @@ export const LoginScreen = () => {
                                 type="email"
                                 className="form-control"
                                 placeholder="Correo"
+                                name="rEmail"
+                                value={rEmail}
+                                onChange={handleRegisterInputChange}
                             />
                         </div>
                         <div className="form-group">
                             <input
                                 type="password"
                                 className="form-control"
-                                placeholder="Contraseña" 
+                                placeholder="Contraseña"
+                                name="rPassword1"
+                                value={rPassword1}
+                                onChange={handleRegisterInputChange}
                             />
                         </div>
 
@@ -86,14 +114,17 @@ export const LoginScreen = () => {
                             <input
                                 type="password"
                                 className="form-control"
-                                placeholder="Repita la contraseña" 
+                                placeholder="Repita la contraseña"
+                                name="rpassword2"
+                                value={rPassword2}
+                                onChange={handleRegisterInputChange}
                             />
                         </div>
 
                         <div className="form-group">
-                            <input 
-                                type="submit" 
-                                className="btnSubmit" 
+                            <input
+                                type="submit"
+                                className="btnSubmit"
                                 value="Crear cuenta" />
                         </div>
                     </form>
