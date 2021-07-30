@@ -2,8 +2,9 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Swal from 'sweetalert2';
 import '@testing-library/jest-dom';
-import { startLogin } from '../../actions/auth';
+import { startLogin, startRegister } from '../../actions/auth';
 import { types } from '../../types/types';
+import * as fetchModule from '../../helpers/fetch';
 
 jest.mock('sweetalert2', () => ({
     fire: jest.fn()
@@ -25,10 +26,10 @@ describe('Pruebas en las acciones Auth', () => {
     });
 
     test('startLogin correcto ', async () => {
-        
+
         await store.dispatch(startLogin('jona@gmail.com', '123456'));
         const actions = store.getActions();
-        
+
         expect(actions[0]).toEqual({
             type: types.authLogin,
             payload: {
@@ -41,19 +42,50 @@ describe('Pruebas en las acciones Auth', () => {
         expect(localStorage.setItem).toHaveBeenCalledWith('token-init-date', expect.any(Number));
     });
 
-    test('startLogin incorrecto ', async() => {
+    test('startLogin incorrecto', async () => {
         await store.dispatch(startLogin('jona@gmail.com', '1234561'));
         let actions = store.getActions();
 
         expect(actions).toEqual([]);
 
         expect(Swal.fire).toHaveBeenCalledWith('Error', 'Password incorrecto', 'error')
-        
+
         await store.dispatch(startLogin('jjona@gmail.com', '123456'));
         actions = store.getActions();
         expect(Swal.fire).toHaveBeenCalledWith('Error', 'El usuario no existe con ese email', 'error')
 
     });
-    
-    
+
+    test('startRegister correcto', async() => {
+
+        fetchModule.fetchSinToken = jest.fn(() => ({
+            json() {
+                return {
+                    ok: true,
+                    uid: '123',
+                    name: 'test2',
+                    token: 'ABC123ABC123'
+                }
+            }
+        }));
+
+        await store.dispatch(startRegister('test@gmail.com', '123456', 'test'));
+
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual({
+            type: types.authLogin,
+            payload: {
+                uid: '123',
+                name: 'test2',
+            }
+        });
+
+        expect(localStorage.setItem).toHaveBeenCalledWith('token', 'ABC123ABC123');
+        expect(localStorage.setItem).toHaveBeenCalledWith('token-init-date', expect.any(Number));
+
+    });
+
+
+
 });
