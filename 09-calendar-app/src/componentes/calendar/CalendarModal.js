@@ -18,8 +18,10 @@ const customStyles = {
         transform: 'translate(-50%, -50%)',
     },
 };
-/* el root element por el div del html */
-Modal.setAppElement('#root');
+if(process.env.NODE_ENV !== 'test') {
+    /* el root element por el div del html */
+    Modal.setAppElement('#root');
+}
 
 const now = moment().minutes(0).seconds(0).add(1, 'hours'); /* para que empieze en la hr siguiente */
 const nowPlus1 = now.clone().add(1, 'hours');
