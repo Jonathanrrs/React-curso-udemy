@@ -93,7 +93,7 @@ exports[`Pruebas en loginScreen Debe mostrarse correctamente  1`] = `
             onChange={[Function]}
             placeholder="Contraseña"
             type="password"
-            value="123456"
+            value=""
           />
         </div>
         <div
@@ -101,11 +101,11 @@ exports[`Pruebas en loginScreen Debe mostrarse correctamente  1`] = `
         >
           <input
             className="form-control"
-            name="rpassword2"
+            name="rPassword2"
             onChange={[Function]}
             placeholder="Repita la contraseña"
             type="password"
-            value="123456"
+            value=""
           />
         </div>
         <div

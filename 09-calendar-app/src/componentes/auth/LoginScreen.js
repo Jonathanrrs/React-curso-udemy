@@ -17,8 +17,8 @@ export const LoginScreen = () => {
     const [formRegisterValues, handleRegisterInputChange] = UseForm({
         rName: 'ili',
         rEmail: 'ili@gmail.com',
-        rPassword1: '123456',
-        rPassword2: '123456'
+        rPassword1: '',
+        rPassword2: ''
     });
 
     const { lEmail, lPassword } = formLoginValues;
@@ -115,7 +115,7 @@ export const LoginScreen = () => {
                                 type="password"
                                 className="form-control"
                                 placeholder="Repita la contraseña"
-                                name="rpassword2"
+                                name="rPassword2"
                                 value={rPassword2}
                                 onChange={handleRegisterInputChange}
                             />
